@@ -1,5 +1,5 @@
 server:
-  port: 8085
+  port: 8086
 spring:
   datasource:
     username: root
@@ -14,11 +14,10 @@ mybatis:
 logging:
   level:
     #root : debug
-    com.zs.backend: info
+    com.zs.backend: warn
   file:
     # 只写 name ,表示在当前项目目录下生成该名字的日志文件，也可以制定路径。
     # 只写 path，表示在指定目录下生成文件夹，文件名默认为 spring.log
     # 两个都写，只有 name 生效
     name: backend.log
-    #path: E:/backend2.log
-    path: log/backend.log
+    path: var/log/backend.log
