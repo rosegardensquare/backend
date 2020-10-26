@@ -19,6 +19,7 @@ public class LoginController {
     //private static Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 
+
     @RequestMapping("login")
     public void login(@RequestBody User userModel) {
         log.info("------" + JSON.toJSONString(userModel));
