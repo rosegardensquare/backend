@@ -7,14 +7,15 @@ spring:
     url: jdbc:mysql://123.57.29.77:3306/backend?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-mybatis:
+mybatis-plus:
   mapper-locations: classpath:mapping/*Mapper.xml
   type-aliases-package: com.example.entity
 
 logging:
   level:
-    #root : debug
-    com.zs.backend: info
+    # 日志级别：info < debug < trace
+    # info 不打印 sql, debug 打印 sql 但是不打印结果集，trace 打印包含结果集的 sql
+    com.zs.backend: trace
   file:
     # 只写 name ,表示在当前项目目录下生成该名字的日志文件，也可以制定路径。
     # 只写 path，表示在指定目录下生成文件夹，文件名默认为 spring.log
@@ -22,3 +23,4 @@ logging:
     name: backend.log
     #path: E:/backend2.log
     path: log/backend.log
+
