@@ -16,7 +16,7 @@ public class OrderExtendDTO implements Serializable {
     /**
      * id
      */
-    private Long id;
+    public Long id;
 
     /**
      * 货主分数
