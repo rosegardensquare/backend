@@ -4,13 +4,9 @@
 
     <resultMap id="BaseResultMap" type="com.zs.backend.entity.User">
         <result column="id" jdbcType="INTEGER" property="id" />
-        <result column="userName" jdbcType="VARCHAR" property="userName" />
-        <result column="passWord" jdbcType="VARCHAR" property="passWord" />
-        <result column="realName" jdbcType="VARCHAR" property="realName" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
     </resultMap>
 
-    <select id="Sel" resultType="com.zs.backend.entity.User">
-        select * from user where id = #{id}
-    </select>
+
 
 </mapper>

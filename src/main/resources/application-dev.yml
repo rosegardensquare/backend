@@ -8,7 +8,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis-plus:
-  mapper-locations: classpath:mapping/*Mapper.xml
+  mapper-locations: classpath:mapping/*.xml
   type-aliases-package: com.example.entity
 
 logging:
