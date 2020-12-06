@@ -13,7 +13,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private UserMapper userMapper;
 
     @Override
-    public User Sel(int id) {
-        return userMapper.Sel(1);
+    public User findById(int id) {
+        return userMapper.findById(1);
     }
 }
