@@ -6,6 +6,7 @@ import com.zs.backend.entity.User;
 import org.springframework.stereotype.Repository;
 
 public interface UserMapper extends BaseMapper<User> {
-    User Sel(int id);
+
+    User findById(int id);
 
 }
