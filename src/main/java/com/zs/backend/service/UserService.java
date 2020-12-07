@@ -1,4 +1,4 @@
-package com.zs.backend.service.user;
+package com.zs.backend.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zs.backend.entity.User;
