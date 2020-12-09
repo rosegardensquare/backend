@@ -38,7 +38,7 @@ public class TestController {
     private IOrderExtendDao orderExtendDao;
 
     @RequestMapping("/")
-    public void login(@RequestBody User userModel) {
+    public void login() {
         List<Long> noScoreOrderIds = new ArrayList<>();
         noScoreOrderIds.add(1829l);
         QueryWrapper<OrderExtend> noScoreExtendQueryWrapper = new QueryWrapper<OrderExtend>()
