@@ -7,11 +7,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.zs.backend.mapper") //扫描的mapper
+@MapperScan({"com.zs.backend.*.mapper"}) //扫描的mapper
 public class BackendApplication {
 
     private static Logger logger = LoggerFactory.getLogger(BackendApplication.class);
-
 
     public static void main(String[] args) {
         logger.warn("backend start");
