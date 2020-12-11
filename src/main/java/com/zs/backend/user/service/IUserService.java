@@ -17,6 +17,6 @@ import com.zs.backend.user.model.UserResponse;
  */
 public interface IUserService extends IService<User> {
 
-    PageVO<User> getUserPage(Integer pageNum, Integer pageSize, UserReq userReq);
+    PageVO<UserResponse> getUserPage(Integer pageNum, Integer pageSize, UserReq userReq);
 
 }

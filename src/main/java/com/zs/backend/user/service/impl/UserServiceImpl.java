@@ -10,7 +10,12 @@ import com.zs.backend.user.model.UserReq;
 import com.zs.backend.user.model.UserResponse;
 import com.zs.backend.user.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zs.backend.utils.BeanUtil;
+import com.zs.backend.utils.DateUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -25,7 +30,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
 
     @Override
-    public PageVO<User> getUserPage(Integer pageNum, Integer pageSize, UserReq userReq) {
+    public PageVO<UserResponse> getUserPage(Integer pageNum, Integer pageSize, UserReq userReq) {
 
         IPage<User> userPage = new Page<>(pageNum, pageSize);
         QueryWrapper<User> queryWrapper = new QueryWrapper<User>()
@@ -33,7 +38,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 .orderByDesc(User.UPDATE_TIME);
 
         IPage<User> userIPage =  this.page(userPage, queryWrapper);
-        PageVO<User> userPageVO = new PageVO(userIPage.getRecords(), userIPage.getTotal());
+        List<UserResponse> userResponses = BeanUtil.beanCopyPropertiesForList(userIPage.getRecords(), UserResponse.class);
+
+        PageVO<UserResponse> userPageVO = new PageVO(userResponses, userIPage.getTotal());
         return userPageVO;
     }
 }

@@ -2,6 +2,8 @@ package com.zs.backend.user.entity;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -41,7 +43,7 @@ public class User implements Serializable {
     /**
      * 生日
      */
-    private LocalDateTime birthday;
+    private Date birthday;
 
     /**
      * 密码
@@ -51,17 +53,17 @@ public class User implements Serializable {
     /**
      * 性别（ 1：男；2：女）
      */
-    private Boolean sex;
+    private Integer sex;
 
     /**
      * 创建时间
      */
-    private LocalDateTime createTime;
+    private Date createTime;
 
     /**
      * 更新时间
      */
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
     /**
      * 是否删除

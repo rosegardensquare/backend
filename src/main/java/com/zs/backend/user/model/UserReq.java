@@ -6,8 +6,7 @@ import lombok.Data;
 @Data
 public class UserReq extends User {
 
-    private String sexStr;
-    private String date1;
+    private String birthdayStr;
     // 根据
     private String queryName;
 
