@@ -4,9 +4,11 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.zs.backend.user.entity.User">
-    <result column="id" property="id" />
+        <id column="id" property="id" />
         <result column="name" property="name" />
-        <result column="address" property="address" />
+        <result column="nickname" property="nickname" />
+        <result column="tel" property="tel" />
+        <result column="birthday" property="birthday" />
         <result column="password" property="password" />
         <result column="sex" property="sex" />
         <result column="create_time" property="createTime" />
@@ -16,8 +18,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id,
-        name, address, password, sex, create_time, update_time, del
+        id, name, nickname, tel, birthday, password, sex, create_time, update_time, del
     </sql>
 
 </mapper>

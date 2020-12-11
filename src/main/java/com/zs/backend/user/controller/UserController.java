@@ -2,17 +2,20 @@ package com.zs.backend.user.controller;
 
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zs.backend.base.Result;
 import com.zs.backend.user.entity.User;
+import com.zs.backend.user.model.PageVO;
+import com.zs.backend.user.model.UserReq;
+import com.zs.backend.user.model.UserResponse;
 import com.zs.backend.user.service.IUserService;
+import com.zs.backend.utils.IDGenerator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -23,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2020-12-10
  */
 @RestController
-@RequestMapping("/user/")
+@RequestMapping("/user")
 @Slf4j
 public class UserController {
 
@@ -32,13 +35,21 @@ public class UserController {
     private IUserService userService;
 
     @GetMapping("/getUserPage")
-    public IPage<User> userPage(@RequestParam(required = true, defaultValue = "1") Integer pageNum,
-                                @RequestParam(required = true, defaultValue = "1") Integer pageSize
-    ) {
-        IPage<User> userPage = new Page<>(pageNum, pageSize);
-        IPage<User> userIPage =  userService.page(userPage);
-        log.info("userIPage : {}", JSON.toJSONString(userIPage));
-        return userIPage;
+    public Result userPage(@RequestParam("pageNum") Integer pageNum,
+                           @RequestParam("pageSize") Integer pageSize,
+                           UserReq userReq) {
+        PageVO<UserResponse> userPageVO =  userService.getUserPage(pageNum, pageSize, userReq);
+        log.info("userIPage : {}", JSON.toJSONString(userPageVO));
+        return Result.result(userPageVO);
+    }
+
+    @PostMapping("/addUser")
+    public void addUser(@RequestBody UserReq userReq) {
+        log.info("userReq : {}", JSON.toJSONString(userReq));
+        User user = new User();
+        BeanUtils.copyProperties(userReq, user);
+        user.setId(IDGenerator.uuid());
+        userService.saveOrUpdate(user);
     }
 
 }
