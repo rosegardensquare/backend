@@ -65,7 +65,7 @@ public class UserController {
     public Result updateUserStatus(String id, boolean del) {
         log.info("updateUserStatus : {}", id);
         User user = userService.getById(id);
-        // todo 异常
+        // todo 公共异常
         user.setDel(del);
         return Result.result(userService.saveOrUpdate(user));
     }
