@@ -15,6 +15,7 @@ import com.zs.backend.utils.IDGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -44,12 +45,28 @@ public class UserController {
     }
 
     @PostMapping("/addUser")
-    public void addUser(@RequestBody UserReq userReq) {
+    public Result addUser(@RequestBody UserReq userReq) {
         log.info("userReq : {}", JSON.toJSONString(userReq));
         User user = new User();
         BeanUtils.copyProperties(userReq, user);
-        user.setId(IDGenerator.uuid());
-        userService.saveOrUpdate(user);
+        if(StringUtils.isEmpty(user.getId())){
+            user.setId(IDGenerator.uuid());
+        }
+        boolean result = userService.saveOrUpdate(user);
+        return Result.result(result);
     }
 
+    @GetMapping("/deleteUser")
+    public Result deleteUser(String id) {
+        log.info("deleteUser : {}", id);
+        return Result.result(userService.removeById(id));
+    }
+    @GetMapping("/updateUserStatus")
+    public Result updateUserStatus(String id, boolean del) {
+        log.info("updateUserStatus : {}", id);
+        User user = userService.getById(id);
+        // todo 异常
+        user.setDel(del);
+        return Result.result(userService.saveOrUpdate(user));
+    }
 }

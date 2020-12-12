@@ -34,7 +34,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         IPage<User> userPage = new Page<>(pageNum, pageSize);
         QueryWrapper<User> queryWrapper = new QueryWrapper<User>()
-                .eq(User.DEL, 0)
                 .orderByDesc(User.UPDATE_TIME);
 
         IPage<User> userIPage =  this.page(userPage, queryWrapper);
