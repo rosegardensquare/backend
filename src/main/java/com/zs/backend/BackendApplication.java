@@ -13,8 +13,12 @@ public class BackendApplication {
     private static Logger logger = LoggerFactory.getLogger(BackendApplication.class);
 
     public static void main(String[] args) {
-        logger.warn("backend start");
-        SpringApplication.run(BackendApplication.class, args);
+        try{
+            logger.warn("backend start");
+            SpringApplication.run(BackendApplication.class, args);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 }

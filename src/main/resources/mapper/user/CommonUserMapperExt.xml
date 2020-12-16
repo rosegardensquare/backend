@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zs.backend.mapper.UserMapper">
+<mapper namespace="com.zs.backend.mapper.CommonUserMapper">
 
 
-    <select id="findById" resultType="com.zs.backend.entity.User">
+    <select id="findById" resultType="com.zs.backend.entity.CommonUser">
         select * from user where id = #{id}
     </select>
 

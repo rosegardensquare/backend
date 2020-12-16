@@ -1,10 +1,11 @@
 package com.zs.backend.user.model;
 
-import com.zs.backend.user.entity.User;
+import com.zs.backend.user.entity.CommonUser;
 import lombok.Data;
 
+
 @Data
-public class UserReq extends User {
+public class CommonUserReq extends CommonUser {
 
     private String birthdayStr;
     // 根据
