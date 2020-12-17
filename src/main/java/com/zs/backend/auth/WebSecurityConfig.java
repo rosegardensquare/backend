@@ -1,5 +1,7 @@
 package com.zs.backend.auth;
 
+import com.zs.backend.security.handler.AuthenticationFailureHandlerImpl;
+import com.zs.backend.security.handler.AuthenticationSuccessHandlerImpl;
 import com.zs.backend.sys.auth.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -59,6 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private PasswordEncoder passwordEncoder;
 
 
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //替换默认的登录认证
@@ -74,22 +77,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // 设置 http 的认证方式
-        http.authorizeRequests()
-                // 跨域预检请求
-                //.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+        //post 请求可以通过
+        http.csrf().disable()
+                .authorizeRequests()
                 // 开放的 URL
                 .antMatchers("/login").permitAll()
-                //.antMatchers("/login/**").permitAll()
+                .antMatchers("/user/**").permitAll()
                 //.antMatchers("/v2/**").permitAll()
                 // 其他所有请求需要身份认证
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                //这里配置的loginProcessingUrl为页面中对应表单的 action ，该请求为 post，并设置可匿名访问
+                .and().formLogin().loginProcessingUrl("/login").permitAll()
+                //这里指定的是表单中name="username"的参数作为登录用户名，name="password"的参数作为登录密码
+                .usernameParameter("name").passwordParameter("password")
+                //登录成功后的返回结果
+                .successHandler(new AuthenticationSuccessHandlerImpl())
+                .failureHandler(new AuthenticationFailureHandlerImpl("name"))
+        ;
         // 退出登录处理器
-        http.logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
-                // post 请求可以通过
-                .and()
-                .csrf().disable();
-        // 开启登录认证流程过滤器
+        http.logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
 
     }
 

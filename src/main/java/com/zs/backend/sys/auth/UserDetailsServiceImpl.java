@@ -39,12 +39,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         QueryWrapper<User> userWrapper = new QueryWrapper<User>()
-                .eq(User.USER_NAME, userName);
-        User user = userMapper.selectOne(userWrapper);
+                .eq(User.USER_NAME, username);
+        User user = null;
+        try{
+            user = userMapper.selectOne(userWrapper);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         if(user == null){
-            throw new UsernameNotFoundException(String.format("用户%s", userName));
+            throw new UsernameNotFoundException(String.format("用户%s", username));
         }
 
         // 查询角色
@@ -56,7 +62,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             val role = roleMapper.selectById(roleUser.getRoleId());
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
         });
-        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassWord(), authorities);
+        org.springframework.security.core.userdetails.User user1 =
+                new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassWord(), authorities);
+        return user1;
     }
 
 
