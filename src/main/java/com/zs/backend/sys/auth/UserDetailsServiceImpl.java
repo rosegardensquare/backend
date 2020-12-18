@@ -54,7 +54,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException(String.format("用户%s", username));
         }
 
-        // 查询角色
         QueryWrapper<UserRole> userRoleWrapper = new QueryWrapper<UserRole>()
                 .eq(User.ID, user.getId());
         List<UserRole> userRoles = userRoleMapper.selectList(userRoleWrapper);
