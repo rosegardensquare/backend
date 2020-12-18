@@ -6,12 +6,13 @@
     <resultMap id="BaseResultMap" type="com.zs.backend.sys.entity.Role">
         <id column="id" property="id" />
         <result column="role_name" property="roleName" />
-        <result column="description" property="description" />
+        <result column="role_code" property="roleCode" />
+        <result column="parent_id" property="parentId" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, role_name, description
+        id, role_name, role_code, parent_id
     </sql>
 
 </mapper>

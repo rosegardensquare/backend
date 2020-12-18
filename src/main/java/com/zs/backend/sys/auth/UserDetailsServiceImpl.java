@@ -2,6 +2,7 @@ package com.zs.backend.sys.auth;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zs.backend.sys.entity.Role;
 import com.zs.backend.sys.entity.User;
 import com.zs.backend.sys.entity.UserRole;
 import com.zs.backend.sys.mapper.RoleMapper;
@@ -59,8 +60,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         List<UserRole> userRoles = userRoleMapper.selectList(userRoleWrapper);
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         userRoles.forEach(roleUser->{
-            val role = roleMapper.selectById(roleUser.getRoleId());
-            authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+            QueryWrapper<Role> roleWrapper = new QueryWrapper<Role>();
+            roleWrapper.eq(Role.PARENTID, roleUser.getRoleId());
+            List<Role> roles = roleMapper.selectList(roleWrapper);
+            roles.forEach(role -> {
+                authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+            });
         });
         org.springframework.security.core.userdetails.User user1 =
                 new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassWord(), authorities);

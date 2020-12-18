@@ -1,4 +1,4 @@
-package com.zs.backend.controller.login;
+package com.zs.backend.login;
 
 import com.alibaba.fastjson.JSON;
 import com.zs.backend.base.Result;
