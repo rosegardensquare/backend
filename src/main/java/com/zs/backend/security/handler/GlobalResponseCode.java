@@ -19,11 +19,11 @@ public enum GlobalResponseCode implements IErrorCode {
 
 
     private int code;
-    private String message;
+    private String msg;
 
-    GlobalResponseCode(int code, String message) {
+    GlobalResponseCode(int code, String msg) {
         this.code = code;
-        this.message = message;
+        this.msg = msg;
     }
 
     @Override
@@ -33,7 +33,7 @@ public enum GlobalResponseCode implements IErrorCode {
 
     @Override
     public String getMsg() {
-        return null;
+        return msg;
     }
 
 }

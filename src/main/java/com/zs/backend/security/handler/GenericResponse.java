@@ -11,11 +11,11 @@ public abstract class GenericResponse implements RestResponse {
     private Map<String, Object> fields;
     private Object data;
     private int code;
-    private String message;
+    private String msg;
 
-    public GenericResponse(int code, String message) {
+    public GenericResponse(int code, String msg) {
         this.code = code;
-        this.message = message;
+        this.msg = msg;
     }
 
     public GenericResponse appendField(String field, Object value) {
@@ -50,7 +50,7 @@ public abstract class GenericResponse implements RestResponse {
         return code;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMsg() {
+        return msg;
     }
 }

@@ -52,7 +52,7 @@ public class UserController {
         if(StringUtils.isEmpty(user.getId())){
             user.setId(IDGenerator.uuid());
         }
-        user.setPassWord(EncodePasswordUtils.encodePassword(user.getPassWord()));
+        user.setPassWord(EncodePasswordUtils.encodePassword(user.getRealPwd()));
         boolean result = userService.saveOrUpdate(user);
         return Result.result(result);
     }

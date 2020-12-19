@@ -6,8 +6,5 @@ public class ErrorResponse extends GenericResponse {
         super(Integer.parseInt(globalResponseCode.getCode() + ""), globalResponseCode.getMsg());
     }
 
-    @Override
-    public String getMsg() {
-        return null;
-    }
+
 }
