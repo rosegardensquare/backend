@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
@@ -58,20 +59,40 @@ public class MenuController {
 
 
     private static List<Menu> auditMenu(List<Menu> menus) {
-        List<Menu> list = new ArrayList<>();
         Map<String, Menu> idAndMenu = new HashMap<>();
         for(Menu menu: menus){
             String menuName = menu.getMenuName();
             if(hasRole(menuName)){
-                if(idAndMenu != null && idAndMenu.size() > 0 && !StringUtils.isEmpty(menu.getParentId()) && idAndMenu.get(menu.getParentId()) != null){
-                    idAndMenu.get(menu.getParentId()).getChildren().add(menu);
+                if(idAndMenu == null || idAndMenu.size() == 0){
+                    if(StringUtils.isEmpty(menu.getParentId())){
+                        idAndMenu.put(menu.getId(), menu);
+                    }else{
+                        Menu menuTemp = new Menu();
+                        menuTemp.getChildren().add(menu);
+                        idAndMenu.put(menu.getParentId(), menuTemp);
+                    }
                     continue;
                 }
-                idAndMenu.put(menu.getId(), menu);
-                list.add(menu);
+
+                if(StringUtils.isEmpty(menu.getParentId())){
+                    if(idAndMenu.get(menu.getId()) != null){
+                        Menu menu1 = idAndMenu.get(menu.getId());
+                        menu.setChildren(menu1.getChildren());
+                        menu1 = menu;
+                        idAndMenu.put(menu.getId(), menu1);
+                    }else {
+                        idAndMenu.put(menu.getId(), menu);
+                    }
+                }else if(idAndMenu.get(menu.getParentId()) != null){
+                    idAndMenu.get(menu.getParentId()).getChildren().add(menu);
+                }else {
+                    Menu menuTemp = new Menu();
+                    menuTemp.getChildren().add(menu);
+                    idAndMenu.put(menu.getParentId(), menuTemp);
+                }
             }
         }
-        return list;
+        return idAndMenu.values().stream().collect(Collectors.toList());
     }
 
     private static Boolean hasRole(String roleName) {
