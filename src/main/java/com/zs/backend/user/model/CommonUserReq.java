@@ -8,7 +8,7 @@ import lombok.Data;
 public class CommonUserReq extends CommonUser {
 
     private String birthdayStr;
-    // 根据
+
     private String queryName;
 
 

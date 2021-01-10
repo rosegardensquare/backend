@@ -3,6 +3,7 @@ package com.zs.backend.utils;
 import org.springframework.util.StringUtils;
 
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Date;
 
 /**
@@ -36,6 +37,11 @@ public class DateUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(dateToString(new Date(), DEFAULT_FORMAT));
+        Date dd= new Date(1609344000000l);
+
+        System.out.println(dateToString(dd, DEFAULT_FORMAT));
+
+        Date d = new Date(1609344000000l + Duration.ofDays(1).getSeconds() * 1000L - 1);
+        System.out.println(dateToString(d, DEFAULT_FORMAT));
     }
 }

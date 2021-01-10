@@ -14,6 +14,7 @@ import com.zs.backend.user.model.CommonUserReq;
 import com.zs.backend.user.model.CommonUserResponse;
 import com.zs.backend.user.model.PageVO;
 import com.zs.backend.utils.BeanUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,6 +34,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public PageVO<UserResponse> getUserPage(Integer pageNum, Integer pageSize, CommonUserReq userReq) {
         IPage<User> userPage = new Page<>(pageNum, pageSize);
         QueryWrapper<User> queryWrapper = new QueryWrapper<User>()
+                .like(userPage != null && StringUtils.isNotBlank(userReq.getQueryName()),
+                        User.USER_NAME, userReq.getQueryName())
                 .orderByDesc(User.UPDATE_TIME);
 
         IPage<User> userIPage =  this.page(userPage, queryWrapper);

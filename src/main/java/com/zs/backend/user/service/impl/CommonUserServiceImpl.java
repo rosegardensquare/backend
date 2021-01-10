@@ -11,6 +11,7 @@ import com.zs.backend.user.model.PageVO;
 import com.zs.backend.user.service.ICommonUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zs.backend.utils.BeanUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,8 +36,9 @@ public class CommonUserServiceImpl extends
 
         IPage<CommonUser> userPage = new Page<>(pageNum, pageSize);
         QueryWrapper<CommonUser> queryWrapper = new QueryWrapper<CommonUser>()
+                .likeRight(userPage != null && StringUtils.isNotBlank(userReq.getQueryName()),
+                        CommonUser.NAME, userReq.getQueryName())
                 .orderByDesc(CommonUser.UPDATE_TIME);
-
         IPage<CommonUser> userIPage =  this.page(userPage, queryWrapper);
         List<CommonUserResponse> userResponses = BeanUtil.beanCopyPropertiesForList(userIPage.getRecords(), CommonUserResponse.class);
 
