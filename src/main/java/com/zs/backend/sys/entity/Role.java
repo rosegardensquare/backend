@@ -31,6 +31,8 @@ public class Role implements Serializable {
     private String parentId;
 
 
-    public static final String PARENTID = "parent_id";
+    public static final String PARENT_ID = "parent_id";
+    public static final String ROLE_NAME = "role_name";
+
 
 }

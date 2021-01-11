@@ -60,7 +60,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         userRoles.forEach(roleUser->{
             QueryWrapper<Role> roleWrapper = new QueryWrapper<Role>();
-            roleWrapper.eq(Role.PARENTID, roleUser.getRoleId());
+            roleWrapper.eq(Role.PARENT_ID, roleUser.getRoleId());
             List<Role> roles = roleMapper.selectList(roleWrapper);
             roles.forEach(role -> {
                 authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
