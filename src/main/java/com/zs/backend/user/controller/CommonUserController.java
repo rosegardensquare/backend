@@ -59,6 +59,7 @@ public class CommonUserController {
         log.info("deleteUser : {}", id);
         return Result.result(userService.removeById(id));
     }
+
     @GetMapping("/updateUserStatus")
     public Result updateUserStatus(String id, boolean del) {
         log.info("updateUserStatus : {}", id);
@@ -66,5 +67,10 @@ public class CommonUserController {
         // todo 公共异常
         user.setDel(del);
         return Result.result(userService.saveOrUpdate(user));
+    }
+
+    @GetMapping("/test")
+    public void test() {
+        userService.test();
     }
 }

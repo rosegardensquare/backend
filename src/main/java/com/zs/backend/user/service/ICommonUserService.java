@@ -20,4 +20,6 @@ public interface ICommonUserService extends IService<CommonUser> {
     PageVO<CommonUserResponse> getUserPage(Integer pageNum,
                                            Integer pageSize, CommonUserReq userReq);
 
+    void test();
+
 }

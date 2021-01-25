@@ -1,8 +1,11 @@
 package com.zs.backend.user.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zs.backend.base.ResponseDTO;
+import com.zs.backend.sys.entity.User;
 import com.zs.backend.user.entity.CommonUser;
 import com.zs.backend.user.mapper.CommonUserMapper;
 import com.zs.backend.user.model.CommonUserReq;
@@ -14,6 +17,7 @@ import com.zs.backend.utils.BeanUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -45,4 +49,14 @@ public class CommonUserServiceImpl extends
         PageVO<CommonUserResponse> userPageVO = new PageVO(userResponses, userIPage.getTotal());
         return userPageVO;
     }
+
+    @Override
+    public void test() {
+        List<String> l = new ArrayList<>();
+        JSON.toJSONString(l);
+
+    }
+
+
+
 }

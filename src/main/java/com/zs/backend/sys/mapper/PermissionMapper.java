@@ -1,10 +1,8 @@
 package com.zs.backend.sys.mapper;
 
-import com.zs.backend.sys.entity.UserRole;
+import com.zs.backend.sys.entity.Permission;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * <p>
@@ -12,9 +10,9 @@ import java.util.List;
  * </p>
  *
  * @author MybatisGenerator
- * @since 2020-12-13
+ * @since 2021-01-25
  */
 @Repository
-public interface UserRoleMapper extends BaseMapper<UserRole> {
+public interface PermissionMapper extends BaseMapper<Permission> {
 
 }
