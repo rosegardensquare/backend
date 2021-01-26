@@ -2,6 +2,8 @@ package com.zs.backend.sys.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.util.List;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -29,7 +31,6 @@ public class Role implements Serializable {
     private String roleCode;
 
     private String parentId;
-
 
     public static final String PARENT_ID = "parent_id";
     public static final String ROLE_NAME = "role_name";

@@ -1,5 +1,6 @@
 package com.zs.backend.sys.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zs.backend.sys.entity.RolePerm;
 import com.zs.backend.sys.mapper.RolePermMapper;
 import com.zs.backend.sys.service.IRolePermService;
@@ -17,4 +18,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class RolePermServiceImpl extends ServiceImpl<RolePermMapper, RolePerm> implements IRolePermService {
 
+    @Override
+    public boolean removeByRoleId(String roleId) {
+        return this.remove(new QueryWrapper<RolePerm>()
+                .eq(RolePerm.ROLE_ID, roleId));
+    }
 }

@@ -27,6 +27,8 @@ public class RolePerm implements Serializable {
     private String roleId;
 
     private String permId;
+    public static final String ID = "id";
+    public static final String ROLE_ID = "role_id";
 
 
 }

@@ -1,6 +1,6 @@
 package com.zs.backend.sys.service;
 
-import com.zs.backend.sys.entity.Permission;
+import com.zs.backend.sys.entity.Permis;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zs.backend.user.model.PageVO;
 
@@ -12,8 +12,9 @@ import com.zs.backend.user.model.PageVO;
  * @author MybatisGenerator
  * @since 2021-01-25
  */
-public interface IPermissionService extends IService<Permission> {
+public interface IPermissionService extends IService<Permis> {
 
-    PageVO<Permission> getPermissionPage(Integer pageNum,
-                             Integer pageSize, Permission permission);
+    PageVO<Permis> getPermissionPage(Integer pageNum,
+                                     Integer pageSize, Permis permission);
+
 }

@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.zs.backend.menu.entity.Menu;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -24,7 +23,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("sys_permission")
-public class Permission implements Serializable {
+public class Permis implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -73,7 +72,7 @@ public class Permission implements Serializable {
     private String sort;
 
     // transient 声明非数据库字段
-    private transient List<Permission> children = new ArrayList<>();
+    private transient List<Permis> children = new ArrayList<>();
 
     public static final String ID = "id";
     public static final String DEL = "del";

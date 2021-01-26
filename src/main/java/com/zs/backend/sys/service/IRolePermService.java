@@ -13,4 +13,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IRolePermService extends IService<RolePerm> {
 
+    /**
+     * 删除角色权限关系
+     * @param roleId
+     * @return
+     */
+    boolean removeByRoleId(String roleId);
 }

@@ -2,12 +2,8 @@ package com.zs.backend.sys.auth;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.zs.backend.sys.entity.Role;
-import com.zs.backend.sys.entity.User;
-import com.zs.backend.sys.entity.UserRole;
-import com.zs.backend.sys.mapper.RoleMapper;
-import com.zs.backend.sys.mapper.UserMapper;
-import com.zs.backend.sys.mapper.UserRoleMapper;
+import com.zs.backend.sys.entity.*;
+import com.zs.backend.sys.mapper.*;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,6 +17,7 @@ import java.security.Permission;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author 张帅
@@ -37,6 +34,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserRoleMapper userRoleMapper;
     @Autowired
     private RoleMapper roleMapper;
+    @Autowired
+    private RolePermMapper rolePermMapper;
+    @Autowired
+    private PermissionMapper permissionMapper;
 
 
     @Override
@@ -59,11 +60,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         List<UserRole> userRoles = userRoleMapper.selectList(userRoleWrapper);
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         userRoles.forEach(roleUser->{
-            QueryWrapper<Role> roleWrapper = new QueryWrapper<Role>();
-            roleWrapper.eq(Role.PARENT_ID, roleUser.getRoleId());
-            List<Role> roles = roleMapper.selectList(roleWrapper);
-            roles.forEach(role -> {
-                authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+            // 根据 roleId 查询权限菜单
+            QueryWrapper<RolePerm> rolePermiWrapper = new QueryWrapper<RolePerm>();
+            rolePermiWrapper.eq(RolePerm.ROLE_ID, roleUser.getRoleId());
+            List<RolePerm> rolePerms = rolePermMapper.selectList(rolePermiWrapper);
+            QueryWrapper<Permis> permisQueryWrapper = new QueryWrapper<Permis>();
+            permisQueryWrapper.in(Permis.ID,
+                    rolePerms.stream().map(a -> a.getId()).collect(Collectors.toList()));
+            List<Permis> permissions = permissionMapper.selectList(permisQueryWrapper);
+            permissions.forEach(permis -> {
+                authorities.add(new SimpleGrantedAuthority(permis.getPermissionName()));
             });
         });
         org.springframework.security.core.userdetails.User user1 =

@@ -3,7 +3,7 @@
 <mapper namespace="com.zs.backend.sys.mapper.PermissionMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.zs.backend.sys.entity.Permission">
+    <resultMap id="BaseResultMap" type="com.zs.backend.sys.entity.Permis">
         <id column="id" property="id" />
         <result column="permission_name" property="permissionName" />
         <result column="icon" property="icon" />
@@ -19,5 +19,18 @@
     <sql id="Base_Column_List">
         id, permission_name, icon, path, parentId, create_time, update_time, del, sort
     </sql>
+
+    <select id="getByRoleIds" resultType="com.zs.backend.sys.model.PermisDto">
+        select sp.id, srp.role_id  from sys_permission sp
+        LEFT JOIN sys_role_perm srp on sp.id = srp.perm_id
+        where true
+        <if test="roleIds != null and roleIds.size()>0">
+            AND srp.role_id IN
+            <foreach item="item" index="index" collection="roleIds" open="("  close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+
+    </select>
 
 </mapper>

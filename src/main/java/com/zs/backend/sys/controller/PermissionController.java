@@ -4,7 +4,7 @@ package com.zs.backend.sys.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zs.backend.base.Result;
 import com.zs.backend.menu.entity.Menu;
-import com.zs.backend.sys.entity.Permission;
+import com.zs.backend.sys.entity.Permis;
 import com.zs.backend.sys.mapper.PermissionMapper;
 import com.zs.backend.sys.service.IPermissionService;
 import com.zs.backend.user.model.PageVO;
@@ -42,13 +42,13 @@ public class PermissionController {
     @GetMapping("/getPermiPage")
     public Result permiPage(@RequestParam("pageNum") Integer pageNum,
                            @RequestParam("pageSize") Integer pageSize,
-                           Permission permission) {
-        PageVO<Permission> vo =  permissionService.getPermissionPage(pageNum, pageSize, permission);
+                            Permis permission) {
+        PageVO<Permis> vo =  permissionService.getPermissionPage(pageNum, pageSize, permission);
         return Result.result(vo);
     }
 
     @PostMapping("/addPermi")
-    public Result addPermi(@RequestBody Permission permission) {
+    public Result addPermi(@RequestBody Permis permission) {
         if(StringUtils.isEmpty(permission.getId())){
             permission.setId(IDGenerator.uuid());
         }
@@ -65,27 +65,27 @@ public class PermissionController {
     @GetMapping("/getMenus")
     public Result getMenuList(){
         // 查询所有菜单
-        QueryWrapper<Permission> menuQueryWrapper = new QueryWrapper<Permission>()
+        QueryWrapper<Permis> menuQueryWrapper = new QueryWrapper<Permis>()
                 .eq(Menu.DEL, 0).orderByAsc(Menu.SORT);
 
-        List<Permission> menuList = permissionMapper.selectList(menuQueryWrapper);
+        List<Permis> menuList = permissionMapper.selectList(menuQueryWrapper);
 
-        List<Permission> menus = auditMenu(menuList);
+        List<Permis> menus = auditMenu(menuList);
 
         return Result.result(menus);
     }
 
 
-    private static List<Permission> auditMenu(List<Permission> menus) {
-        Map<String, Permission> idAndMenu = new HashMap<>();
-        for(Permission menu: menus){
+    private static List<Permis> auditMenu(List<Permis> menus) {
+        Map<String, Permis> idAndMenu = new HashMap<>();
+        for(Permis menu: menus){
             String menuName = menu.getPermissionName();
             if(hasRole(menuName)){
                 if(idAndMenu == null || idAndMenu.size() == 0){
                     if(StringUtils.isEmpty(menu.getParentId())){
                         idAndMenu.put(menu.getId(), menu);
                     }else{
-                        Permission menuTemp = new Permission();
+                        Permis menuTemp = new Permis();
                         menuTemp.getChildren().add(menu);
                         idAndMenu.put(menu.getParentId(), menuTemp);
                     }
@@ -94,7 +94,7 @@ public class PermissionController {
 
                 if(StringUtils.isEmpty(menu.getParentId())){
                     if(idAndMenu.get(menu.getId()) != null){
-                        Permission menu1 = idAndMenu.get(menu.getId());
+                        Permis menu1 = idAndMenu.get(menu.getId());
                         menu.setChildren(menu1.getChildren());
                         menu1 = menu;
                         idAndMenu.put(menu.getId(), menu1);
@@ -104,7 +104,7 @@ public class PermissionController {
                 }else if(idAndMenu.get(menu.getParentId()) != null){
                     idAndMenu.get(menu.getParentId()).getChildren().add(menu);
                 }else {
-                    Permission menuTemp = new Permission();
+                    Permis menuTemp = new Permis();
                     menuTemp.getChildren().add(menu);
                     idAndMenu.put(menu.getParentId(), menuTemp);
                 }
@@ -127,9 +127,9 @@ public class PermissionController {
     @GetMapping("/getMenusByParentId")
     public Result getMenusByParentId(@RequestParam("parentId") String parentId){
 
-        QueryWrapper<Permission> menuQueryWrapper = new QueryWrapper<Permission>()
-                .eq(Permission.DEL, 0).eq(Permission.PARENT_ID, parentId).orderByAsc(Menu.SORT);
-        List<Permission> menuList = permissionMapper.selectList(menuQueryWrapper);
+        QueryWrapper<Permis> menuQueryWrapper = new QueryWrapper<Permis>()
+                .eq(Permis.DEL, 0).eq(Permis.PARENT_ID, parentId).orderByAsc(Menu.SORT);
+        List<Permis> menuList = permissionMapper.selectList(menuQueryWrapper);
         return Result.result(menuList);
     }
 

@@ -3,8 +3,7 @@ package com.zs.backend.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zs.backend.sys.entity.Permission;
-import com.zs.backend.sys.entity.Role;
+import com.zs.backend.sys.entity.Permis;
 import com.zs.backend.sys.mapper.PermissionMapper;
 import com.zs.backend.sys.service.IPermissionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -24,20 +23,21 @@ import java.util.List;
  * @since 2021-01-25
  */
 @Service
-public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permission> implements IPermissionService {
+public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permis> implements IPermissionService {
 
     @Override
-    public PageVO<Permission> getPermissionPage(Integer pageNum, Integer pageSize, Permission permission) {
-        IPage<Permission> permissionIPage = new Page<>(pageNum, pageSize);
-        QueryWrapper<Permission> queryWrapper = new QueryWrapper<Permission>()
+    public PageVO<Permis> getPermissionPage(Integer pageNum, Integer pageSize, Permis permission) {
+        IPage<Permis> permissionIPage = new Page<>(pageNum, pageSize);
+        QueryWrapper<Permis> queryWrapper = new QueryWrapper<Permis>()
                 .like(permissionIPage != null && StringUtils.isNotBlank(permission.getPermissionName()),
-                        Permission.PERMISSION_NAME, permission.getPermissionName());
+                        Permis.PERMISSION_NAME, permission.getPermissionName());
 
-        IPage<Permission> permissionPage =  this.page(permissionIPage, queryWrapper);
-        List<Permission> permissions =
-                BeanUtil.beanCopyPropertiesForList(permissionPage.getRecords(), Permission.class);
+        IPage<Permis> permissionPage =  this.page(permissionIPage, queryWrapper);
+        List<Permis> permissions =
+                BeanUtil.beanCopyPropertiesForList(permissionPage.getRecords(), Permis.class);
 
-        PageVO<Permission> vo = new PageVO(permissions, permissionPage.getTotal());
+        PageVO<Permis> vo = new PageVO(permissions, permissionPage.getTotal());
         return vo;
     }
+
 }
