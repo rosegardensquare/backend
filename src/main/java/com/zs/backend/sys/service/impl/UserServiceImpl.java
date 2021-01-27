@@ -60,9 +60,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             }
 
             Map<String, UserRole> userIdAndBean = userRoles.stream().collect(Collectors.toMap(UserRole::getUserId, userRole -> userRole));
-            userResponses.forEach(userResponse -> userResponse.setRoleId(
-                    userIdAndBean.get(userResponse.getId()) == null ? null : userIdAndBean.get(userResponse.getId()).getRoleId()
-            ));
+
+            userResponses.forEach(item->{
+                item.setRoleId(
+                        userIdAndBean.get(item.getId()) == null ? null : userIdAndBean.get(item.getId()).getRoleId());
+                item.setRoleName(
+                        userIdAndBean.get(item.getId()) == null ? null : userIdAndBean.get(item.getId()).getRoleName());
+            });
+
+
         }
 
         PageVO<UserResponse> userPageVO = new PageVO(userResponses, userIPage.getTotal());

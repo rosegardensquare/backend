@@ -1,5 +1,6 @@
 package com.zs.backend.sys.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,7 +10,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author MybatisGenerator
@@ -29,7 +30,11 @@ public class UserRole implements Serializable {
 
     private String roleId;
 
+    @TableField(exist = false)
+    private String roleName;
+
     public static final String ROLE_ID = "role_id";
+    public static final String USER_ID = "user_id";
 
 
 }

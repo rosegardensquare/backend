@@ -4,14 +4,30 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.zs.backend.sys.entity.UserRole">
-        <id column="id" property="id" />
-        <result column="user_id" property="userId" />
-        <result column="role_id" property="roleId" />
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="role_id" property="roleId"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, user_id, role_id
     </sql>
+
+    <select id="selectByUserIds" parameterType="java.lang.String" resultType="com.zs.backend.sys.entity.UserRole">
+        SELECT
+        sur.user_id,
+        sur.role_id roleId,
+        sr.role_name roleName
+        FROM
+        sys_user_role sur
+        LEFT JOIN sys_role sr ON sr.id = sur.role_id
+        WHERE
+        sur.user_id in
+        <foreach collection="userIds" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
 
 </mapper>
