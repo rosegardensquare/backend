@@ -52,4 +52,10 @@ public class RoleController {
         return Result.result(roleService.deleteById(id));
     }
 
+
+    @GetMapping("/getRoles")
+    public Result getRoles(){
+        return Result.result(roleService.list());
+    }
+
 }

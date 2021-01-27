@@ -1,11 +1,10 @@
 package com.zs.backend.sys.service;
 
-import com.zs.backend.sys.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zs.backend.sys.entity.User;
 import com.zs.backend.sys.model.UserReq;
 import com.zs.backend.sys.model.UserResponse;
 import com.zs.backend.user.model.CommonUserReq;
-import com.zs.backend.user.model.CommonUserResponse;
 import com.zs.backend.user.model.PageVO;
 
 /**
@@ -18,7 +17,20 @@ import com.zs.backend.user.model.PageVO;
  */
 public interface IUserService extends IService<User> {
 
+    /**
+     * 分页
+     * @param pageNum
+     * @param pageSize
+     * @param userReq
+     * @return
+     */
     PageVO<UserResponse> getUserPage(Integer pageNum,
                                      Integer pageSize, CommonUserReq userReq);
 
+    /**
+     * 添加或更新
+     * @param userReq
+     * @return
+     */
+    boolean saveOrUpdateUser(UserReq userReq);
 }

@@ -66,7 +66,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             List<RolePerm> rolePerms = rolePermMapper.selectList(rolePermiWrapper);
             QueryWrapper<Permis> permisQueryWrapper = new QueryWrapper<Permis>();
             permisQueryWrapper.in(Permis.ID,
-                    rolePerms.stream().map(a -> a.getId()).collect(Collectors.toList()));
+                    rolePerms.stream().map(a -> a.getPermId()).collect(Collectors.toList()));
             List<Permis> permissions = permissionMapper.selectList(permisQueryWrapper);
             permissions.forEach(permis -> {
                 authorities.add(new SimpleGrantedAuthority(permis.getPermissionName()));

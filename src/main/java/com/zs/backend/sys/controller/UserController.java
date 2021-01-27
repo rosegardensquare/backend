@@ -9,12 +9,8 @@ import com.zs.backend.sys.model.UserResponse;
 import com.zs.backend.sys.service.IUserService;
 import com.zs.backend.user.model.CommonUserReq;
 import com.zs.backend.user.model.PageVO;
-import com.zs.backend.utils.EncodePasswordUtils;
-import com.zs.backend.utils.IDGenerator;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -47,13 +43,7 @@ public class UserController {
     @PostMapping("/addUser")
     public Result addUser(@RequestBody UserReq userReq) {
         log.info("userReq : {}", JSON.toJSONString(userReq));
-        User user = new User();
-        BeanUtils.copyProperties(userReq, user);
-        if(StringUtils.isEmpty(user.getId())){
-            user.setId(IDGenerator.uuid());
-        }
-        user.setPassWord(EncodePasswordUtils.encodePassword(user.getRealPwd()));
-        boolean result = userService.saveOrUpdate(user);
+        boolean result = userService.saveOrUpdateUser(userReq);
         return Result.result(result);
     }
 

@@ -7,9 +7,11 @@ import lombok.Data;
 @Data
 public class UserReq extends User {
 
-    private String birthdayStr;
-    // 根据
     private String queryName;
 
+    /**
+     * 角色id
+     */
+    private String roleId;
 
 }
