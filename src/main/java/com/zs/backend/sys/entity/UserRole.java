@@ -29,5 +29,7 @@ public class UserRole implements Serializable {
 
     private String roleId;
 
+    public static final String ROLE_ID = "role_id";
+
 
 }

@@ -23,6 +23,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -47,8 +49,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 .orderByDesc(User.UPDATE_TIME);
 
         IPage<User> userIPage = this.page(userPage, queryWrapper);
+        List<User> users = userIPage.getRecords();
         List<UserResponse> userResponses =
-                BeanUtil.beanCopyPropertiesForList(userIPage.getRecords(), UserResponse.class);
+                BeanUtil.beanCopyPropertiesForList(users, UserResponse.class);
+        if (users != null && !users.isEmpty()) {
+            // 获取roleId
+            List<UserRole> userRoles = userRoleService.getByUserIds(userResponses.stream().map(p -> p.getId()).collect(Collectors.toList()));
+            if (userRoles == null || userRoles.isEmpty()) {
+                new Exception();
+            }
+
+            Map<String, UserRole> userIdAndBean = userRoles.stream().collect(Collectors.toMap(UserRole::getUserId, userRole -> userRole));
+            userResponses.forEach(userResponse -> userResponse.setRoleId(
+                    userIdAndBean.get(userResponse.getId()) == null ? null : userIdAndBean.get(userResponse.getId()).getRoleId()
+            ));
+        }
 
         PageVO<UserResponse> userPageVO = new PageVO(userResponses, userIPage.getTotal());
         return userPageVO;
@@ -72,4 +87,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         this.saveOrUpdate(user);
         return true;
     }
+
+    @Override
+    public boolean removeUserById(String id) {
+        return this.removeById(id);
+    }
+
 }

@@ -14,6 +14,8 @@ public class UserResponse extends User {
 
     private String updateTimeStr;
 
+    private String roleId;
+
     public String getCreateTimeStr(){
         return DateUtil.dateToString(this.getCreateTime(), DateUtil.DEFAULT_FORMAT);
     }

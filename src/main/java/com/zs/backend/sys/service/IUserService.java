@@ -9,7 +9,7 @@ import com.zs.backend.user.model.PageVO;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author MybatisGenerator
@@ -19,6 +19,7 @@ public interface IUserService extends IService<User> {
 
     /**
      * 分页
+     *
      * @param pageNum
      * @param pageSize
      * @param userReq
@@ -29,8 +30,17 @@ public interface IUserService extends IService<User> {
 
     /**
      * 添加或更新
+     *
      * @param userReq
      * @return
      */
     boolean saveOrUpdateUser(UserReq userReq);
+
+    /**
+     * 删除用户
+     *
+     * @param id
+     * @return
+     */
+    boolean removeUserById(String id);
 }

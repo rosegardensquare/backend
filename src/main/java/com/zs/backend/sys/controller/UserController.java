@@ -50,7 +50,7 @@ public class UserController {
     @GetMapping("/deleteUser")
     public Result deleteUser(String id) {
         log.info("deleteUser : {}", id);
-        return Result.result(userService.removeById(id));
+        return Result.result(userService.removeUserById(id));
     }
     @GetMapping("/updateUserStatus")
     public Result updateUserStatus(String id, boolean del) {
