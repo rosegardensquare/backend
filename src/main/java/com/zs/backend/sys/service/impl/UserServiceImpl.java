@@ -61,7 +61,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
             Map<String, UserRole> userIdAndBean = userRoles.stream().collect(Collectors.toMap(UserRole::getUserId, userRole -> userRole));
 
-            userResponses.forEach(item->{
+            userResponses.forEach(item -> {
                 item.setRoleId(
                         userIdAndBean.get(item.getId()) == null ? null : userIdAndBean.get(item.getId()).getRoleId());
                 item.setRoleName(
@@ -78,18 +78,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean saveOrUpdateUser(UserReq userReq) {
+
         User user = new User();
         BeanUtils.copyProperties(userReq, user);
-        if (StringUtils.isEmpty(user.getId())) {
+        if (userReq.isUpdate()) {
+            // 删除用户角色关系
+            QueryWrapper<UserRole> queryWrapper = new QueryWrapper<UserRole>()
+                    .eq(UserRole.USER_ID, user.getId());
+            userRoleService.remove(queryWrapper);
+        } else {
             user.setId(IDGenerator.uuid());
             user.setPassWord(EncodePasswordUtils.encodePassword(user.getRealPwd()));
-            // 新增或者添加角色
-            UserRole userRole = new UserRole();
-            userRole.setId(IDGenerator.uuid());
-            userRole.setUserId(user.getId());
-            userRole.setRoleId(userReq.getRoleId());
-            userRoleService.save(userRole);
         }
+        UserRole userRole = new UserRole();
+        userRole.setId(IDGenerator.uuid());
+        userRole.setUserId(user.getId());
+        userRole.setRoleId(userReq.getRoleId());
+        userRoleService.save(userRole);
         this.saveOrUpdate(user);
         return true;
     }

@@ -14,4 +14,9 @@ public class UserReq extends User {
      */
     private String roleId;
 
+    /**
+     * 是否是更新操作
+     */
+    private boolean update = false;
+
 }
