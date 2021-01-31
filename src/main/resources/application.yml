@@ -3,3 +3,7 @@ spring:
     active: dev
   jackson:
     time-zone: GMT+8
+  http:
+    multipart:
+      maxFileSize: 10Mb
+      maxRequestSize: 100Mb
