@@ -78,6 +78,7 @@ public class Menu implements Serializable {
     public static final String ID = "id";
     public static final String DEL = "del";
     public static final String SORT = "sort";
+    public static final String CREATE_TIME = "create_time";
 
 
 

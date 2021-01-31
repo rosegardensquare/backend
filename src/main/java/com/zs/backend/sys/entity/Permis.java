@@ -71,7 +71,7 @@ public class Permis implements Serializable {
      */
     private String sort;
 
-    // transient 声明非数据库字段
+    @TableField(exist = false)
     private transient List<Permis> children = new ArrayList<>();
 
     public static final String ID = "id";
