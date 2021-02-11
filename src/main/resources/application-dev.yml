@@ -23,4 +23,10 @@ logging:
     name: backend.log
     #path: E:/backend2.log
     path: log/backend.log
-
+aliyun:
+  oss:
+    file:
+      endpoint: oss-cn-beijing.aliyuncs.com
+      keyid: LTAI4GBpkre5UuiXF12Y4HHb
+      keysecret: 7xA5BmhRQFkXTbk4JvGPCLKBWdfGO7
+      bucketname: backend-frontend
