@@ -43,5 +43,10 @@ public class FrontMetadata implements Serializable {
      */
     private Boolean del;
 
+    public static final String TYPE = "type";
+    public static final String DEL = "del";
+    public static final String CREATE_TIME = "create_time";
+    public static final String UPDATE_TIME = "update_time";
+
 
 }
