@@ -8,11 +8,9 @@ public class ConnectionUtil {
     public static Connection getConnection() throws Exception{
 
         //创建连接工厂
-
         ConnectionFactory connectionFactory=new ConnectionFactory();
 
         //设置参数
-
         connectionFactory.setHost("192.168.237.131");//主机ip
 
         connectionFactory.setVirtualHost("my_rabbitmq1");//虚拟主机名
