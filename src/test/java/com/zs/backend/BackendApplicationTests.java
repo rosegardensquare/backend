@@ -1,17 +1,20 @@
 package com.zs.backend;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BackendApplicationTests {
+public class BackendApplicationTests {
+
+    @Autowired
+    private RabbitTemplate template;
 
     @Test
-    void contextLoads() {
-        String s = "  ";
-        System.out.println("test s : " + StringUtils.isNotBlank(s));
-        System.out.println("test s : " + StringUtils.isNotEmpty(s));
+    public void test_rabbitMQ_topic_publish() {
+      //  template.convertAndSend();
 
     }
 
