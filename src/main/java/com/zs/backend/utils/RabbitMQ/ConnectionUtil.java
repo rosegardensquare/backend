@@ -13,6 +13,8 @@ public class ConnectionUtil {
         //设置参数
         connectionFactory.setHost("192.168.237.131");//主机ip
 
+        connectionFactory.setPort(5672);
+
         connectionFactory.setVirtualHost("my_rabbitmq1");//虚拟主机名
 
         connectionFactory.setUsername("guest");//账号
