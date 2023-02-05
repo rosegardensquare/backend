@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class ConsumeListener {
 
     /**
-     * 消费者自动 ack 方式
+     * 消费者手动 ack 方式
      * @param msg
      */
     @RabbitListener(queues = RabbitMQConfig.QUEUE)
