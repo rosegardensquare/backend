@@ -48,6 +48,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         super.configure(web);
     }
 
+    /**
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //post 请求可以通过
@@ -55,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 开放的 URL
                 .antMatchers("/login").permitAll()
-                // 开放所有接口
+                // 开放所有接口，如果需要登录验证，则注释
                 .antMatchers("/*/**").permitAll()
                 // 其他所有请求需要身份认证
                 .anyRequest().authenticated()

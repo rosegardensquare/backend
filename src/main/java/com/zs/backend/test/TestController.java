@@ -8,8 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/test")
 public class TestController {
-    @GetMapping("/test")
+
+
+    @GetMapping("/a")
     public Result getMenuList(){
-        return Result.result(200);
+        return Result.result("ok");
+
     }
+
 }
