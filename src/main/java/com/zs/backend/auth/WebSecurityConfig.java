@@ -55,8 +55,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 开放的 URL
                 .antMatchers("/login").permitAll()
-                // 开放所有接口
-                //.antMatchers("/*/**").permitAll()
+                // 开放所有接口，如果需要登录验证，则注释
+                .antMatchers("/*/**").permitAll()
                 // 其他所有请求需要身份认证
                 .anyRequest().authenticated()
                 //这里配置的loginProcessingUrl为页面中对应表单的 action ，该请求为 post，并设置可匿名访问
