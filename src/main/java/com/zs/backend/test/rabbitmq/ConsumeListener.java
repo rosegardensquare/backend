@@ -1,4 +1,4 @@
-package com.zs.backend.test;
+package com.zs.backend.test.rabbitmq;
 
 import com.rabbitmq.client.Channel;
 import com.zs.backend.config.RabbitMQConfig;

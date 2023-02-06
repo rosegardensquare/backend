@@ -1,5 +1,4 @@
-package com.zs.backend.test;
-
+package com.zs.backend.test.rabbitmq;
 
 import com.alibaba.fastjson.JSON;
 import com.zs.backend.base.Result;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/test")
-public class TestController {
+public class RabbitMQTestController {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
