@@ -10,6 +10,7 @@ import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate.ConfirmCallback;
+import org.springframework.amqp.rabbit.core.RabbitTemplate.ReturnCallback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +50,32 @@ public class RabbitMQTestController {
                 }else{
                     System.out.println("消息没有送达到Exchange，需要做一些补偿操作！！retry！！！");
                 }
+            }
+        });
+
+        rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, "rabbitMQ。。。。。。", new MessagePostProcessor() {
+            @Override
+            public Message postProcessMessage(Message message) throws AmqpException {
+                // 设置消息的唯一标识
+                message.getMessageProperties().setCorrelationId("123");
+                return message;
+            }
+        });
+        return Result.result(JSON.toJSON(rabbitTemplate));
+    }
+
+    /**
+     * 生产者的 return 机制
+     * 如果写错了路由规则名称，就会进入return 回调中
+     * @return
+     */
+    @GetMapping("/returns")
+    public Result returns(){
+        rabbitTemplate.setReturnCallback(new ReturnCallback() {
+            @Override
+            public void returnedMessage(Message message, int i, String s, String s1, String s2) {
+                String msg = new String(message.getBody());
+                System.out.println("消息：" + msg + "路由队列失败！！做补救操作！！");
             }
         });
 
