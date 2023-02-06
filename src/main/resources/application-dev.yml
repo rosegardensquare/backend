@@ -15,6 +15,7 @@ spring:
     listener:
       simple:
         acknowledge-mode: manual #开启手动 ack
+    publisher-confirm-type: correlated # 开启 confirm 机制
 
 mybatis-plus:
   mapper-locations: classpath:mapper/**/*.xml

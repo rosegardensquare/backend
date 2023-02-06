@@ -7,7 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessagePostProcessor;
+import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.rabbit.core.RabbitTemplate.ConfirmCallback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,13 +35,24 @@ public class RabbitMQTestController {
     }
 
     /**
-     * convertAndSend(String exchange, String routingKey, Object 消息， , MessagePostProcessor messagePostProcessor)
-     * 发送消息时候，可以带上其他参数,比如：唯一标识
+     * 生产者的 confirm 机制
+     * 如果写错了生产者的交换机名称，就会进入else 中
      * @return
      */
-    @GetMapping("/b")
-    public Result test02(){
-        rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE, "b.black.b", "rabbitMQ 未启动时，发送消息002", new MessagePostProcessor() {
+    @GetMapping("/confirm")
+    public Result confirm(){
+        rabbitTemplate.setConfirmCallback(new RabbitTemplate.ConfirmCallback() {
+            @Override
+            public void confirm(CorrelationData correlationData, boolean ack, String cause) {
+                if(ack){
+                    System.out.println("消息已经送达到交换机！！");
+                }else{
+                    System.out.println("消息没有送达到Exchange，需要做一些补偿操作！！retry！！！");
+                }
+            }
+        });
+
+        rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, "rabbitMQ。。。。。。", new MessagePostProcessor() {
             @Override
             public Message postProcessMessage(Message message) throws AmqpException {
                 // 设置消息的唯一标识
