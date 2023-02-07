@@ -1,5 +1,7 @@
 package com.zs.backend.test.rabbitmq.deadLetter;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Exchange;
@@ -34,8 +36,12 @@ public class DeadLetterConfig {
 
     @Bean
     public Queue normalQueue(){
+        Map<String, Object> args = new HashMap<>();
+        // 设置队列的最大长度
+        args.put("x-max-length", 3);
         return QueueBuilder.nonDurable(NORMAL_QUEUE)
             .deadLetterExchange(DEAD_LETTER_EXCHANGE).deadLetterRoutingKey(DEAD_LETTER_ROUTING_KEY)
+            .withArguments(args)
             .build();
     }
 
