@@ -37,8 +37,8 @@ public class RabbitMQConfig {
 
     // topic 模式：根据路由规则，队列绑定到交换机上
     @Bean
-    public Binding topicBind(Exchange exchange, Queue queue){
-        return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY).noargs();
+    public Binding topicBind(Exchange topicExchange, Queue topicQueue){
+        return BindingBuilder.bind(topicQueue).to(topicExchange).with(ROUTING_KEY).noargs();
     }
 
 
