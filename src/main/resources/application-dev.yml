@@ -7,16 +7,10 @@ spring:
     url: jdbc:mysql://123.57.29.77:3306/backend?useUnicode=true&characterEncoding=utf-8&useSSL=true&&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
   rabbitmq:
-    host: 192.168.237.131
-    port: 5672
     username: guest
     password: guest
-    virtual-host: my_rabbitmq1
-    listener:
-      simple:
-        acknowledge-mode: manual #开启手动 ack
-    publisher-confirm-type: correlated # 开启 confirm 机制
-    publisher-returns: true # 开启 return 机制
+    virtual-host: /
+    addresses: 192.168.237.133:5672,192.168.237.135:5672
 
 mybatis-plus:
   mapper-locations: classpath:mapper/**/*.xml

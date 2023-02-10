@@ -36,13 +36,7 @@ public class DeadLetterConfig {
 
     @Bean
     public Queue normalQueue(){
-        Map<String, Object> args = new HashMap<>();
-        // 设置队列的最大长度
-        args.put("x-max-length", 3);
-        return QueueBuilder.nonDurable(NORMAL_QUEUE)
-            .deadLetterExchange(DEAD_LETTER_EXCHANGE).deadLetterRoutingKey(DEAD_LETTER_ROUTING_KEY)
-            .withArguments(args)
-            .build();
+        return QueueBuilder.nonDurable(NORMAL_QUEUE).build();
     }
 
     @Bean
@@ -50,20 +44,20 @@ public class DeadLetterConfig {
         return BindingBuilder.bind(normalQueue).to(normalExchange).with(NORMAL_ROUTING_KEY).noargs();
     }
 
-    @Bean
-    public Exchange deadLetterExchange(){
-        return ExchangeBuilder.topicExchange(DEAD_LETTER_EXCHANGE).build();
-    }
-
-    @Bean
-    public Queue deadLetterQueue(){
-        return QueueBuilder.nonDurable(DEAD_LETTER_QUEUE).build();
-    }
-
-    @Bean
-    public Binding deadLetterBinding(Queue deadLetterQueue, Exchange deadLetterExchange){
-        return BindingBuilder.bind(deadLetterQueue).to(deadLetterExchange).with(DEAD_LETTER_ROUTING_KEY).noargs();
-    }
+//    @Bean
+//    public Exchange deadLetterExchange(){
+//        return ExchangeBuilder.topicExchange(DEAD_LETTER_EXCHANGE).build();
+//    }
+//
+//    @Bean
+//    public Queue deadLetterQueue(){
+//        return QueueBuilder.nonDurable(DEAD_LETTER_QUEUE).build();
+//    }
+//
+//    @Bean
+//    public Binding deadLetterBinding(Queue deadLetterQueue, Exchange deadLetterExchange){
+//        return BindingBuilder.bind(deadLetterQueue).to(deadLetterExchange).with(DEAD_LETTER_ROUTING_KEY).noargs();
+//    }
 
 
 }
