@@ -1,8 +1,12 @@
 package com.zs.backend.auth;
 
+import com.zs.backend.config.IgnoreUrlsConfig;
 import com.zs.backend.security.handler.AuthenticationFailureHandlerImpl;
 import com.zs.backend.security.handler.AuthenticationSuccessHandlerImpl;
 import com.zs.backend.sys.auth.UserDetailsServiceImpl;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,6 +39,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private IgnoreUrlsConfig ignoreUrlsConfig;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //替换默认的登录认证
@@ -45,7 +52,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        super.configure(web);
+        List<String> urls = ignoreUrlsConfig.getUrls();
+        web.ignoring().antMatchers(urls.toArray(new String[urls.size()]));
+        //super.configure(web);
     }
 
     @Override
@@ -53,7 +62,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //post 请求可以通过
         http.csrf().disable()
                 .authorizeRequests()
-                // 开放的 URL
+                // 接口白名单
+                //.antMatchers("/test").permitAll()
+                 // 开放的 URL
                 .antMatchers("/login").permitAll()
                 // 开放所有接口
                 //.antMatchers("/*/**").permitAll()
