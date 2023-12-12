@@ -1,6 +1,5 @@
 package com.zs.backend.utils;
 
-import com.alibaba.fastjson.JSON;
 import lombok.Data;
 
 import java.text.MessageFormat;
@@ -8,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Test {
@@ -67,10 +65,7 @@ public class Test {
 
 
     public static void main(String[] args) {
-        ParamVo param1 = new ParamVo();
-        param1.setStartTimeStr("2020-01-01");
-
-        ParamVo param = JSON.parseObject(JSON.toJSONString(param1), ParamVo.class);
+        String s ;
     }
 
     @Data

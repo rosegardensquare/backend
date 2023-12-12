@@ -4,8 +4,6 @@ import com.zs.backend.config.IgnoreUrlsConfig;
 import com.zs.backend.security.handler.AuthenticationFailureHandlerImpl;
 import com.zs.backend.security.handler.AuthenticationSuccessHandlerImpl;
 import com.zs.backend.sys.auth.UserDetailsServiceImpl;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -63,7 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 // 接口白名单
-                //.antMatchers("/test").permitAll()
+                .antMatchers("/test").permitAll()
                  // 开放的 URL
                 .antMatchers("/login").permitAll()
                 // 开放所有接口
