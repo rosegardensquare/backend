@@ -1,5 +1,10 @@
 package com.zs.backend.utils;
 
+import com.google.common.collect.Lists;
+import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicStampedReference;
+import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.text.MessageFormat;
@@ -8,6 +13,8 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Stream;
+import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
 
 public class Test {
 
@@ -65,7 +72,14 @@ public class Test {
 
 
     public static void main(String[] args) {
-        String s ;
+        List<User> users = Lists.newArrayList(
+            new User(1,"a","11"),
+            new User(2,"b","22"));
+        List<Integer> ids = users.stream().map(user -> user.getId()).collect(Collectors.toList());
+        System.out.println("ids: " + ids);
+        List<User> userList = users.stream().filter(user -> user.getId().equals("1")).collect(Collectors.toList());
+        List<Integer> list = users.stream().map(user -> user.getId() + 1).collect(Collectors.toList());
+        System.out.println("list: " + list);
     }
 
     @Data
@@ -80,25 +94,20 @@ public class Test {
 
 }
 
-
-
-  class User {
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+class User {
+    Integer id;
     String name;
     String age;
+}
 
-      public String getName() {
-          return name;
-      }
-
-      public void setName(String name) {
-          this.name = name;
-      }
-
-      public String getAge() {
-          return age;
-      }
-
-      public void setAge(String age) {
-          this.age = age;
-      }
-  }
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+class User2 {
+    Integer id;
+    String name;
+    String age;
+}
