@@ -23,7 +23,6 @@
         <relativePath/>
     </parent>
 
-
     <properties>
         <java.version>11</java.version>
         <spring.boot.version>2.3.1.RELEASE</spring.boot.version>
@@ -32,16 +31,35 @@
     </properties>
 
     <!--版本依赖-->
-<!--    <dependencyManagement>-->
-<!--        <dependencies>-->
+    <dependencyManagement>
+        <dependencies>
 
-<!--        </dependencies>-->
-<!--    </dependencyManagement>-->
+            <dependency>
+                <groupId>com.zs</groupId>
+                <artifactId>backend-model</artifactId>
+                <version>${backend.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.zs</groupId>
+                <artifactId>backend-common</artifactId>
+                <version>${backend.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.zs</groupId>
+                <artifactId>backend-service</artifactId>
+                <version>${backend.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>transmittable-thread-local</artifactId>
@@ -97,7 +115,6 @@
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>1.1.18</version>
         </dependency>
-
 
         <dependency>
             <groupId>com.google.guava</groupId>
