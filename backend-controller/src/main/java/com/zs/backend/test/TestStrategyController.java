@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/crud")
+@RequestMapping("/")
 @Slf4j
 public class TestStrategyController {
 
     @Autowired
     private StrategyProcess strategyProcess;
 
-    @GetMapping("/test")
+    @GetMapping("/strategy")
     public void test(){
         strategyProcess.test();
     }
