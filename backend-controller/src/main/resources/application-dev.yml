@@ -6,6 +6,13 @@ spring:
     password: 123456
     url: jdbc:mysql://192.168.237.130:3306/backend?useUnicode=true&characterEncoding=utf-8&useSSL=true&&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
+  elasticsearch:
+    host-and-port: 127.0.0.1:9200
+
+  logging:
+    level:
+      com.kl.es: debug
+
 
 mybatis-plus:
   mapper-locations: classpath:mapper/**/*.xml
