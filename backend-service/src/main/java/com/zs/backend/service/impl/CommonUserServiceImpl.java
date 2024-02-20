@@ -14,8 +14,6 @@ import com.zs.backend.service.ICommonUserService;
 import com.zs.backend.utils.BeanUtil;
 import java.util.List;
 import org.springframework.stereotype.Service;
-import org.apache.commons.lang3.StringUtils;
-
 
 /**
  * <p>
@@ -32,6 +30,7 @@ public class CommonUserServiceImpl extends
     @Override
     public PageVO<CommonUserResponse> getUserPage(Integer pageNum,
         Integer pageSize, CommonUserReq userReq) {
+
 
         IPage<CommonUser> userPage = new Page<>(pageNum, pageSize);
         QueryWrapper<CommonUser> queryWrapper = new QueryWrapper<CommonUser>()
