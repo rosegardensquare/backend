@@ -15,7 +15,7 @@ import java.util.Date;
  * 日期工具类
  */
 public class DateUtil {
-
+    public static final String YMDHMS = "yyyyMMddHHmmss";
     public static final String DEFAULT_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String YMD_FORMAT = "yyyy-MM-dd";
     public static final String YMD = "yyyyMMdd";
@@ -54,9 +54,9 @@ public class DateUtil {
     }
 
     public static String getFormatDate(Date date, String format) {
-//        if (StringUtil.isEmpty(format)) {
-//            format = "yyyy-MM-dd HH:mm:ss";
-//        }
+        if (format == null || format.equals("")) {
+            format = "yyyy-MM-dd HH:mm:ss";
+        }
 
         if (date != null) {
             SimpleDateFormat df = new SimpleDateFormat(format);
