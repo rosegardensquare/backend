@@ -1,0 +1,53 @@
+## db.setting文件 使用中括号表示多数据源
+
+###本地数据源 固定名称 local 默认使用本地数据源
+[local]
+url = jdbc:mysql://172.26.111.80:3306/tsms_dlmu?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&autoReconnect=true&failOverReadOnly=false&allowMultiQueries=true
+driver = com.mysql.cj.jdbc.Driver
+user = root
+pass = blessme
+## 可选配置
+# 是否在日志中显示执行的SQL
+showSql = true
+# 是否格式化显示的SQL
+formatSql = true
+# 是否显示SQL参数
+showParams = true
+# 打印SQL的日志等级，默认debug，可以是info、warn、error
+sqlLevel = debug
+
+# *** 阿里连接池配置(默认开启自动重连机制)
+#初始连接数
+initialSize = 1
+#最大连接数
+maxActive = 10
+#最小空闲连接数,超过的空闲连接会被关闭
+minIdle = 5
+#获取连接池连接的最大等待毫秒数据,默认-1，即会一直等待下去
+maxWait = 60000
+#限制的等待线程个数,默认-1不限制
+maxWaitThreadCount = 500
+#最小空闲时间,连接空闲时间大于该值并且池中空闲连接大于minIdle则关闭该连接; 默认1800000毫秒是30分钟
+minEvictableIdleTimeMillis = 3600000
+#最大空闲时间,连接空闲时间大于该值，不管minIdle都关闭该连接默认25200000毫秒7小时
+maxEvictableIdleTimeMillis = 25200000
+#关闭空闲连接的检测时间间隔; 300000毫秒是5分钟
+timeBetweenEvictionRunsMillis = 600000
+#连接出错后重试时间间隔; 60000毫秒是1分钟
+timeBetweenConnectErrorMillis = 60000
+#连接失败后不断重试获取连接; 默认false启用失败重连,true表示不会尝试重连
+breakAfterAcquireFailure = false
+#检查连接正常的SQL
+validationQuery = select 1
+validationQueryTimeout = -1
+#申请连接时直接检测连接是否有效
+testOnBorrow = true
+#归还连接时检测连接是否有效
+testOnReturn = false
+#申请连接时检测空闲时间，根据空闲时间再检测连接是否有效
+testWhileIdle = true
+#是否缓存预编译语句
+poolPreparedStatements = true
+maxOpenPreparedStatements = 100
+#缓存预编译SQL语句
+sharePreparedStatements = true

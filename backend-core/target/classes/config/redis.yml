@@ -1,0 +1,19 @@
+# redis 默认连接名称,连接名称随意写不重复即可
+primary: local # 默认首选连接名称,连接名称随意写不重复即可
+# redis 连接名称,支持多数据源,连接池带自动重连机制
+redisPool: # redis连接名称
+  local: # redis连接名称 local ,连接名称随意写不重复即可
+    host: 172.26.111.80 # 主机地址
+    port: 6379 # 端口号
+    password:  # 连接密码
+    database: 15 # 库索引0-15
+    maxIdle: 20 # 最大空闲数
+    maxTotal: 1000 # 最大连接数 0表示无限制
+    connectionTimeout: 20_000 # 客户端连接超时毫秒数
+    soTimeout: 10_000 # 读取数据超时毫秒数
+    maxWaitMillis: 10_000 # 。如果超过此时间将接到异常。设为-1表示无限制。
+    minEvictableIdleTimeMillis: 300_000 #连接的最小空闲时间 默认1800000毫秒(30分钟)
+    numTestsPerEvictionRun: 1024 # 每次释放连接的最大数目,默认3
+    testOnCreate: true #是否在创建连接池时进行检验,默认为false时无法连接也可以成功创建连接池
+    testOnBorrow: true #是否在从池中取出连接前进行检验,如果检验失败,则从池中去除连接并尝试取出另一个
+    testWhileIdle: true #在空闲时检查有效性, 默认false
